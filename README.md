@@ -130,3 +130,63 @@ By following the principle of programming against interfaces, you can create mor
  
 **Would you like to see an example of how programming against interfaces can improve code testability?**
 
+## Interfaces vs. Abstract Classes
+
+**Imagine you're building a car.**
+
+### Abstract Class:
+Think of an abstract class as a blueprint for a specific type of car, like a "Sedan". It provides a basic structure and some common parts (methods), but you can still customize it (add specific features).
+
+* **Can have both abstract and concrete methods.**
+* **Can have variables (fields).**
+* **Supports single inheritance.**
+* **Used when you want to provide a common base class with some implementation details.**
+
+**Example:**
+
+```java
+abstract class Sedan {
+    int numberOfDoors = 4; // Common property
+
+    void startEngine() { // Concrete method
+        System.out.println("Sedan engine started");
+    }
+
+    abstract void accelerate(); // Abstract method, must be implemented by subclasses
+}
+```
+
+### Interface:
+Think of an interface as a contract that defines what a car *must* have or be able to do, like having wheels and being able to move. It doesn't specify how these features are implemented.
+
+* **Contains only abstract methods.**
+* **Can't have variables (fields).**
+* **Supports multiple inheritance.**
+* **Used when you want to define a standard behavior without providing implementation details.**
+
+**Example:**
+```java
+interface Vehicle {
+    void start();
+    void stop();
+}
+```
+
+**Key Differences:**
+
+| Feature | Abstract Class | Interface |
+|---|---|---|
+| Methods | Can have both abstract and concrete | Only abstract methods |
+| Variables | Can have variables | Can have only static final variables |
+| Inheritance | Single inheritance | Multiple inheritance |
+| Implementation | Provides some implementation | No implementation |
+
+**When to use which:**
+
+* **Abstract Class:** When you want to share code among related classes, provide a default implementation, and allow subclasses to override or extend methods.
+* **Interface:** When you want to define a common behavior for unrelated classes, achieve polymorphism, or support multiple inheritance.
+
+**Remember:** Both abstract classes and interfaces are used for abstraction, but they serve different purposes. Choosing the right one depends on your specific design requirements.
+
+**Would you like to see an example of how to use interfaces and abstract classes in a practical scenario?**
+
