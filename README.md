@@ -101,6 +101,31 @@ In this example, `AreaCalculator` depends on the `Shape` interface, not specific
 * While programming against interfaces is generally recommended, there might be situations where using concrete classes is appropriate, such as performance optimization or when the implementation details are tightly coupled to the specific use case.
 * It's essential to balance the benefits of loose coupling with potential performance implications.
 
+Tightly and loosely coupled systems refer to the degree of interdependence between components in a system, often in the context of software architecture or computer systems. Here’s a breakdown of the two concepts:
+
+### Tightly Coupled Systems
+
+- **High Interdependence:** Components in a tightly coupled system are highly dependent on each other. Changes in one component often require changes in others.
+- **Direct Communication:** Components directly communicate with each other, often through explicit interfaces or function calls.
+- **Low Modularity:** The system is less modular, making it harder to isolate components for testing or maintenance.
+- **Performance:** Tightly coupled systems can have better performance in some cases because components can be optimized to work closely together.
+- **Flexibility and Scalability:** These systems are less flexible and scalable because modifying or extending the system can be challenging.
+
+### Loosely Coupled Systems
+
+- **Low Interdependence:** Components in a loosely coupled system have minimal dependencies on each other. They interact through well-defined interfaces or message passing.
+- **Indirect Communication:** Communication between components is often indirect, using intermediaries such as message brokers or APIs.
+- **High Modularity:** The system is more modular, making it easier to isolate, test, and maintain components.
+- **Flexibility and Scalability:** These systems are more flexible and scalable. New components can be added or existing ones modified with minimal impact on the rest of the system.
+- **Performance:** While loosely coupled systems might have performance overhead due to the extra layers of communication, they often provide greater overall system robustness and adaptability.
+
+### Examples
+
+- **Tightly Coupled System Example:** A monolithic application where different modules or classes are directly interdependent and rely on shared states or variables.
+- **Loosely Coupled System Example:** A microservices architecture where services communicate over a network using APIs or message queues, each service being independent and self-contained.
+
+In summary, tightly coupled systems are characterized by strong interdependencies between components, which can lead to higher performance but lower flexibility. Loosely coupled systems, on the other hand, prioritize modularity and flexibility, facilitating easier maintenance and scalability at the potential cost of some performance efficiency.
+
 By following the principle of programming against interfaces, you can create more adaptable, maintainable, and testable software systems.
  
 **Would you like to see an example of how programming against interfaces can improve code testability?**
