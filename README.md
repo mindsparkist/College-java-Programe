@@ -229,3 +229,79 @@ In simpler terms, the JRE is a subset of the JDK, focusing solely on the runtime
  
 **Would you like to delve deeper into a specific aspect of JDK or JRE?** 
 
+Coding Example of OOPS
+
+Certainly, I'll rewrite the example in Java. Here's the equivalent Object-Oriented Programming example using Java syntax:
+
+```java
+// Abstract base class
+abstract class Animal {
+    protected String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    // Abstract method to be implemented by subclasses
+    public abstract String speak();
+}
+
+// Dog subclass
+class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+
+    @Override
+    public String speak() {
+        return this.name + " says Woof!";
+    }
+}
+
+// Cat subclass
+class Cat extends Animal {
+    public Cat(String name) {
+        super(name);
+    }
+
+    @Override
+    public String speak() {
+        return this.name + " says Meow!";
+    }
+}
+
+// Main class to demonstrate the usage
+public class Main {
+    public static void main(String[] args) {
+        // Creating objects
+        Animal dog = new Dog("Buddy");
+        Animal cat = new Cat("Whiskers");
+
+        // Using polymorphism
+        System.out.println(dog.speak());  // Output: Buddy says Woof!
+        System.out.println(cat.speak());  // Output: Whiskers says Meow!
+    }
+}
+```
+
+This Java example demonstrates the same OOP concepts as the Python version:
+
+1. Classes and Objects: We define `Animal`, `Dog`, and `Cat` classes and create objects of these classes.
+
+2. Encapsulation: The `name` attribute is protected and accessed through methods.
+
+3. Inheritance: `Dog` and `Cat` inherit from `Animal`.
+
+4. Polymorphism: The `speak()` method is overridden in subclasses and can be called on `Animal` references.
+
+5. Abstraction: `Animal` is an abstract class with an abstract `speak()` method.
+
+Key differences from the Python version:
+
+- Java uses explicit type declarations.
+- The `abstract` keyword is used for the base class and method.
+- Method overriding is explicitly marked with the `@Override` annotation.
+- Constructor chaining is done using `super()`.
+- The `main` method is required to run the program.
+
+Would you like me to explain any part of this Java implementation in more detail?
