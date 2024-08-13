@@ -305,3 +305,21 @@ Key differences from the Python version:
 - The `main` method is required to run the program.
 
 Would you like me to explain any part of this Java implementation in more detail?
+
+Strings are immutable in Java for several important reasons:
+
+1. Security: Immutability ensures that string values cannot be changed after creation, which is crucial for sensitive data like passwords or network connections.
+
+2. Performance: 
+   - String pool optimization: Java can reuse string literals, saving memory.
+   - Hashcode caching: The hashcode of an immutable string can be cached, improving performance in hash-based collections.
+
+3. Thread safety: Immutable strings are inherently thread-safe, eliminating the need for synchronization in multi-threaded environments.
+
+4. Simplicity: Immutability simplifies the use of strings as keys in hash-based data structures.
+
+5. Caching: Results of string operations can be safely cached without worrying about future modifications.
+
+These design choices help make Java more efficient and less error-prone in many common use cases.
+
+Would you like me to elaborate on any of these points or discuss how Java implements string immutability?
