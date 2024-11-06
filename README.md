@@ -323,3 +323,96 @@ Strings are immutable in Java for several important reasons:
 These design choices help make Java more efficient and less error-prone in many common use cases.
 
 Would you like me to elaborate on any of these points or discuss how Java implements string immutability?
+
+Let me explain the different thread states in Java with a clear diagram and explanation.
+
+
+
+```mermaid
+stateDiagram-v2
+    [*] --> New: Thread object created
+    
+    New --> Runnable: start()
+    
+    Runnable --> Running: Thread scheduler selects
+    Running --> Runnable: Time slice expired
+    
+    Running --> Blocked: Waiting for I/O\nor synchronized block
+    Blocked --> Runnable: I/O complete\nor lock available
+    
+    Running --> Waiting: wait()\nsleep()\njoin()
+    Waiting --> Runnable: notify()\nnotifyAll()\ntimeout\ninterrupt()
+    
+    Running --> Terminated: run() completes\nor stop()
+    
+    Terminated --> [*]
+
+    note right of New
+        Thread object exists but
+        hasn't started execution
+    end note
+    
+    note right of Runnable
+        Ready to run and
+        waiting for CPU
+    end note
+    
+    note right of Running
+        Currently executing
+        on CPU
+    end note
+    
+    note right of Blocked
+        Waiting for I/O or
+        monitor lock
+    end note
+    
+    note right of Waiting
+        Waiting for other
+        thread to take action
+    end note
+
+```
+
+Let me explain each thread state and the transitions between them:
+
+1. **New**
+   - Initial state when a Thread object is created
+   - Thread exists but hasn't started executing yet
+
+2. **Runnable**
+   - Thread is ready to run and is waiting for CPU
+   - Moves to this state when start() is called
+   - Can return to this state from Running when time slice expires
+
+3. **Running**
+   - Thread is currently executing on CPU
+   - Selected from Runnable pool by thread scheduler
+   - Can transition to several other states:
+     - Blocked (for I/O or locks)
+     - Waiting (via wait(), sleep(), or join())
+     - Terminated (when done)
+
+4. **Blocked**
+   - Thread is waiting for I/O to complete
+   - Or waiting to acquire a synchronized lock
+   - Returns to Runnable when resource becomes available
+
+5. **Waiting**
+   - Thread is waiting for another thread to perform an action
+   - Enters this state through:
+     - wait()
+     - sleep()
+     - join()
+   - Returns to Runnable through:
+     - notify()
+     - notifyAll()
+     - Timeout
+     - interrupt()
+
+6. **Terminated**
+   - Thread has completed its execution
+   - Either naturally (run() completed)
+   - Or through stop() method (deprecated)
+
+Would you like me to explain any particular state transitions in more detail or provide example code showing how to transition between specific states?
