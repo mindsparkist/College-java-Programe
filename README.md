@@ -416,3 +416,38 @@ Let me explain each thread state and the transitions between them:
    - Or through stop() method (deprecated)
 
 Would you like me to explain any particular state transitions in more detail or provide example code showing how to transition between specific states?
+
+Deploying Java Programes 
+Here's a step-by-step guide to deploying a Java application from IntelliJ as a JAR file:
+
+1. **Set Up Your Project**:
+   - Open your Java project in IntelliJ IDEA.
+   - Ensure that your code is working as expected.
+
+2. **Add an Artifact**:
+   - Go to **File > Project Structure** or press `Ctrl + Shift + Alt + S`.
+   - Select the **Artifacts** section on the left.
+   - Click the **+** button, choose **JAR > From modules with dependencies**.
+   - Select the main class (the class with the `main` method) and click **OK**.
+   - In the **Output Layout** tab, ensure your JAR includes the necessary libraries. By default, IntelliJ will include dependencies if you selected "With dependencies" in the previous step.
+
+3. **Set Up a Build Configuration**:
+   - Go to **Build > Build Artifacts**.
+   - Find the artifact you just created and select **Build**. This will compile your application and package it into a JAR file.
+
+4. **Locate the JAR File**:
+   - The JAR file will typically be in the `out/artifacts/` directory within your project folder. You can find it by navigating to the **Project** window in IntelliJ and expanding the **out** folder.
+
+5. **Run the JAR File**:
+   - Open a terminal or command prompt.
+   - Navigate to the directory where your JAR file is located.
+   - Run the JAR file with the command:
+     ```bash
+     java -jar yourfile.jar
+     ```
+     Replace `yourfile.jar` with the actual name of your JAR file.
+
+6. **(Optional) Watch a Tutorial**:
+   - For a video demonstration of deploying a Java application as a JAR file from IntelliJ, check out [this tutorial](https://youtu.be/aYQLZYRJmwg).
+
+This should give you a standalone JAR file for your Java application that you can run on any system with Java installed.
