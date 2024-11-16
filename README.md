@@ -451,3 +451,54 @@ Here's a step-by-step guide to deploying a Java application from IntelliJ as a J
    - For a video demonstration of deploying a Java application as a JAR file from IntelliJ, check out [this tutorial](https://youtu.be/aYQLZYRJmwg).
 
 This should give you a standalone JAR file for your Java application that you can run on any system with Java installed.
+
+
+Let me explain coupling in object-oriented programming concisely.
+
+Coupling measures how dependent one class is on another class. It's essentially about how much one class needs to know about another class to function.
+
+There are two main types:
+
+1. Tight/High Coupling
+- Classes are heavily dependent on each other
+- Changes in one class likely require changes in another
+- Example:
+```java
+class Order {
+    private Customer customer;
+    
+    public void processOrder() {
+        customer.updatePurchaseHistory();
+        customer.deductBalance();
+        customer.sendEmailConfirmation();
+    }
+}
+```
+
+2. Loose/Low Coupling
+- Classes are more independent
+- Changes in one class rarely affect others
+- Often achieved through interfaces or abstract classes
+- Example:
+```java
+interface PaymentProcessor {
+    void processPayment();
+}
+
+class Order {
+    private PaymentProcessor paymentProcessor;
+    
+    public void checkout() {
+        paymentProcessor.processPayment();
+    }
+}
+```
+
+Low coupling is generally preferred as it makes code:
+- More maintainable
+- Easier to test
+- More flexible to changes
+- More reusable
+
+Would you like me to elaborate on specific techniques for achieving loose coupling?
+
