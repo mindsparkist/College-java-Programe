@@ -784,3 +784,151 @@ Common use cases:
 - Data export
 
 Would you like me to elaborate on any specific aspect of toString()?
+
+Let me explain Java Access Modifiers comprehensively:
+
+There are 4 types of access modifiers in Java:
+
+1. Public:
+```java
+public class PublicExample {
+    public String name;     // Accessible everywhere
+    public void method() {
+        // Accessible from any class
+    }
+}
+```
+
+2. Private:
+```java
+public class PrivateExample {
+    private String name;    // Only accessible within this class
+    
+    private void method() {
+        // Only accessible within this class
+    }
+    
+    // Getter/Setter for private fields
+    public String getName() {
+        return name;
+    }
+}
+```
+
+3. Protected:
+```java
+public class Parent {
+    protected String name;  // Accessible in same package and subclasses
+    
+    protected void method() {
+        // Accessible in same package and subclasses
+    }
+}
+
+class Child extends Parent {
+    void accessParent() {
+        System.out.println(name);    // Can access protected member
+        method();                    // Can access protected method
+    }
+}
+```
+
+4. Default (Package-Private):
+```java
+class DefaultExample {     // No modifier = default
+    String name;          // Accessible only within same package
+    
+    void method() {       // Accessible only within same package
+        // Package-private method
+    }
+}
+```
+
+Real-world Example:
+```java
+// File: Person.java
+public class Person {
+    private String name;           // Private - data encapsulation
+    private int age;              // Private - data encapsulation
+    protected String address;      // Protected - accessible by subclasses
+    String email;                 // Default - package access
+    public String phoneNumber;     // Public - open access
+    
+    // Public constructor
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    // Private helper method
+    private void validate() {
+        // Internal validation logic
+    }
+    
+    // Protected method for inheritance
+    protected void updateAddress(String newAddress) {
+        this.address = newAddress;
+    }
+    
+    // Public interface methods
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        validate();
+        this.name = name;
+    }
+}
+```
+
+Access Levels Table:
+```
+Modifier    | Class | Package | Subclass | World
+------------|-------|---------|----------|-------
+public      |   Y   |    Y    |    Y     |   Y
+protected   |   Y   |    Y    |    Y     |   N
+default     |   Y   |    Y    |    N     |   N
+private     |   Y   |    N    |    N     |   N
+```
+
+Common Use Cases:
+
+1. Data Encapsulation:
+```java
+public class BankAccount {
+    private double balance;    // Private field
+    
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+}
+```
+
+2. Inheritance:
+```java
+public class Vehicle {
+    protected int speed;    // Accessible by subclasses
+    
+    protected void accelerate() {
+        speed += 10;
+    }
+}
+
+class Car extends Vehicle {
+    void speedUp() {
+        accelerate();      // Can access protected method
+        speed += 5;        // Can access protected field
+    }
+}
+```
+
+Best Practices:
+1. Make fields private unless there's a good reason not to
+2. Use protected for members that subclasses need to access
+3. Use public only for methods that form your class's API
+4. Use default access only when you want to restrict access to the package
+
+Would you like me to elaborate on any specific aspect of access modifiers?
