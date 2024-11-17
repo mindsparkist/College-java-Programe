@@ -502,3 +502,81 @@ Low coupling is generally preferred as it makes code:
 
 Would you like me to elaborate on specific techniques for achieving loose coupling?
 
+The Object class in Java is the root/parent class of all Java classes. Here's a concise explanation:
+
+Key points about Object class:
+
+1. Located in java.lang package and automatically imported
+2. Every class implicitly extends Object if it doesn't extend any other class
+
+Important methods from Object class:
+
+```java
+public class Example {
+    public static void main(String[] args) {
+        Object obj = new Object();
+        
+        // Common Object class methods:
+        obj.toString();      // Returns string representation
+        obj.equals(obj);     // Compares objects for equality
+        obj.hashCode();      // Returns hash code value
+        obj.getClass();      // Returns runtime class
+        obj.clone();         // Creates and returns copy
+        obj.notify();        // Wakes up single thread
+        obj.notifyAll();     // Wakes up all threads
+        obj.wait();          // Makes thread wait
+    }
+}
+```
+
+Common uses and overrides:
+
+1. toString() - Customizing string representation:
+```java
+class Student {
+    private String name;
+    private int id;
+    
+    @Override
+    public String toString() {
+        return "Student[name=" + name + ", id=" + id + "]";
+    }
+}
+```
+
+2. equals() - Custom equality comparison:
+```java
+class Student {
+    private int id;
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Student other = (Student) obj;
+        return this.id == other.id;
+    }
+}
+```
+
+3. hashCode() - Usually overridden with equals():
+```java
+class Student {
+    private int id;
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}
+```
+
+These methods are essential for:
+- Collections framework operations
+- Synchronization (wait/notify)
+- Object comparison and identification
+- Debugging and logging
+
+Would you like me to elaborate on any specific method or use case?
+
+
