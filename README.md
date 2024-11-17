@@ -579,4 +579,208 @@ These methods are essential for:
 
 Would you like me to elaborate on any specific method or use case?
 
+Wrapper classes in Java are used to convert primitive data types into objects. Here's a comprehensive explanation:
 
+1. Basic Wrapper Classes:
+```java
+// Primitive -> Wrapper
+byte -> Byte
+short -> Short
+int -> Integer
+long -> Long
+float -> Float
+double -> Double
+char -> Character
+boolean -> Boolean
+```
+
+2. Creating Wrapper Objects:
+```java
+// Three ways to create wrapper objects
+Integer num1 = new Integer(5);        // Deprecated
+Integer num2 = Integer.valueOf(5);     // Preferred - uses caching
+Integer num3 = 5;                      // Auto-boxing
+
+// Unwrapping
+int primitive = num3.intValue();       // Explicit unboxing
+int primitive2 = num3;                 // Auto-unboxing
+```
+
+3. Useful Methods:
+```java
+public class WrapperDemo {
+    public static void main(String[] args) {
+        // Parsing methods
+        int i = Integer.parseInt("100");
+        double d = Double.parseDouble("3.14");
+        
+        // Conversion methods
+        String binary = Integer.toBinaryString(10);    // "1010"
+        String hex = Integer.toHexString(16);          // "10"
+        
+        // Constants
+        System.out.println(Integer.MAX_VALUE);         // 2147483647
+        System.out.println(Integer.MIN_VALUE);         // -2147483648
+        
+        // Comparison
+        Integer x = 128;
+        Integer y = 128;
+        System.out.println(x == y);      // false (outside cache range)
+        System.out.println(x.equals(y));  // true
+    }
+}
+```
+
+4. Auto-boxing and Unboxing:
+```java
+public class AutoboxingDemo {
+    public static void main(String[] args) {
+        // Autoboxing
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(5);  // automatically converts int to Integer
+        
+        // Auto-unboxing
+        int sum = 0;
+        for(Integer num : list) {
+            sum += num;  // automatically converts Integer to int
+        }
+    }
+}
+```
+
+5. Important Considerations:
+- Cache Pool (-128 to 127 for Integer)
+```java
+Integer a = 127;
+Integer b = 127;
+System.out.println(a == b);      // true (within cache)
+
+Integer c = 128;
+Integer d = 128;
+System.out.println(c == d);      // false (outside cache)
+```
+
+Key benefits of Wrapper Classes:
+1. Allow primitives to be used in Collections
+2. Provide useful utility methods
+3. Enable null values for primitives
+4. Support generic type parameters
+
+Remember:
+- Use equals() for comparison, not ==
+- Prefer valueOf() over new constructor
+- Be aware of autoboxing performance implications in loops
+
+Would you like me to elaborate on any specific aspect of wrapper classes?
+
+The toString() method in Java is used to get a string representation of an object. Let me explain with examples:
+
+1. Default toString():
+```java
+class SimpleClass {
+    int id = 1;
+    // Without overriding toString()
+    public static void main(String[] args) {
+        SimpleClass obj = new SimpleClass();
+        System.out.println(obj); // Output: SimpleClass@7852e922
+    }
+}
+```
+
+2. Overriding toString():
+```java
+class Student {
+    private String name;
+    private int id;
+    
+    public Student(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+    
+    @Override
+    public String toString() {
+        return "Student [name=" + name + ", id=" + id + "]";
+    }
+}
+```
+
+3. Common Use Cases:
+
+```java
+public class ToStringExample {
+    public static void main(String[] args) {
+        // Arrays toString
+        int[] numbers = {1, 2, 3};
+        System.out.println(Arrays.toString(numbers));  // [1, 2, 3]
+        
+        // StringBuilder
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hello").append(" World");
+        System.out.println(sb.toString());  // Hello World
+        
+        // ArrayList
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Apple");
+        list.add("Banana");
+        System.out.println(list.toString());  // [Apple, Banana]
+    }
+}
+```
+
+4. Best Practices:
+```java
+class Person {
+    private String name;
+    private int age;
+    private String email;
+    
+    @Override
+    public String toString() {
+        return String.format("Person[name=%s, age=%d, email=%s]", 
+            name, age, email);
+            
+        // Or using StringBuilder
+        return new StringBuilder()
+            .append("Person[")
+            .append("name=").append(name)
+            .append(", age=").append(age)
+            .append(", email=").append(email)
+            .append("]")
+            .toString();
+    }
+}
+```
+
+5. Using Objects.toString():
+```java
+class Employee {
+    private String name;
+    private Integer salary;  // Could be null
+    
+    @Override
+    public String toString() {
+        return "Employee[name=" + 
+               Objects.toString(name, "Unknown") + 
+               ", salary=" + 
+               Objects.toString(salary, "0") + 
+               "]";
+    }
+}
+```
+
+Key points about toString():
+1. Automatically called when object is printed
+2. Used for debugging and logging
+3. Should include important field values
+4. Should be concise yet informative
+5. Should handle null values appropriately
+
+Common use cases:
+- Debugging
+- Logging
+- String concatenation
+- Display object state
+- Data export
+
+Would you like me to elaborate on any specific aspect of toString()?
