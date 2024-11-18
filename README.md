@@ -932,3 +932,352 @@ Best Practices:
 4. Use default access only when you want to restrict access to the package
 
 Would you like me to elaborate on any specific aspect of access modifiers?
+
+Let me explain Dependency Injection (DI) with clear examples:
+
+Dependency Injection is a design pattern where objects get their dependencies from external sources rather than creating them internally.
+
+1. Without Dependency Injection (Bad Practice):
+```java
+class EmailService {
+    public void sendEmail(String message) {
+        // Send email logic
+    }
+}
+
+class UserService {
+    private EmailService emailService;
+    
+    public UserService() {
+        // Creating dependency inside - tightly coupled
+        this.emailService = new EmailService();
+    }
+    
+    public void registerUser() {
+        // User registration logic
+        emailService.sendEmail("Welcome!");
+    }
+}
+```
+
+2. With Constructor Injection:
+```java
+interface MessageService {
+    void sendMessage(String message);
+}
+
+class EmailService implements MessageService {
+    @Override
+    public void sendMessage(String message) {
+        // Email sending logic
+    }
+}
+
+class SMSService implements MessageService {
+    @Override
+    public void sendMessage(String message) {
+        // SMS sending logic
+    }
+}
+
+class UserService {
+    private final MessageService messageService;
+    
+    // Dependency injected through constructor
+    public UserService(MessageService messageService) {
+        this.messageService = messageService;
+    }
+    
+    public void registerUser() {
+        // User registration logic
+        messageService.sendMessage("Welcome!");
+    }
+}
+
+// Usage
+MessageService emailService = new EmailService();
+UserService userService = new UserService(emailService);
+```
+
+3. Setter Injection:
+```java
+class UserService {
+    private MessageService messageService;
+    
+    // Dependency injected through setter
+    public void setMessageService(MessageService messageService) {
+        this.messageService = messageService;
+    }
+    
+    public void registerUser() {
+        messageService.sendMessage("Welcome!");
+    }
+}
+```
+
+4. Field Injection (using Spring framework):
+```java
+@Service
+class UserService {
+    @Autowired
+    private MessageService messageService;
+    
+    public void registerUser() {
+        messageService.sendMessage("Welcome!");
+    }
+}
+```
+
+5. Real-world Example with Spring:
+```java
+// Repository layer
+@Repository
+public class UserRepository {
+    public void save(User user) {
+        // Database operations
+    }
+}
+
+// Service layer
+@Service
+public class UserService {
+    private final UserRepository userRepository;
+    private final MessageService messageService;
+    
+    @Autowired
+    public UserService(UserRepository userRepository, 
+                      MessageService messageService) {
+        this.userRepository = userRepository;
+        this.messageService = messageService;
+    }
+    
+    public void registerUser(User user) {
+        userRepository.save(user);
+        messageService.sendMessage("User registered: " + user.getEmail());
+    }
+}
+
+// Controller layer
+@RestController
+public class UserController {
+    private final UserService userService;
+    
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+    
+    @PostMapping("/users")
+    public void createUser(@RequestBody User user) {
+        userService.registerUser(user);
+    }
+}
+```
+
+Benefits of Dependency Injection:
+1. Loose coupling
+2. Easier testing (can mock dependencies)
+3. More flexible code
+4. Better separation of concerns
+5. Easier maintenance
+
+Common DI Frameworks:
+1. Spring
+2. Google Guice
+3. Dagger
+4. Java EE CDI
+
+Testing Example with DI:
+```java
+class UserServiceTest {
+    @Mock
+    private MessageService messageService;
+    
+    @InjectMocks
+    private UserService userService;
+    
+    @Test
+    void testRegisterUser() {
+        // Arrange
+        User user = new User("test@email.com");
+        
+        // Act
+        userService.registerUser(user);
+        
+        // Assert
+        verify(messageService).sendMessage(anyString());
+    }
+}
+```
+
+Would you like me to elaborate on any specific aspect of Dependency Injection?
+
+There are three main types of Dependency Injection. Let me explain each with examples:
+
+1. Constructor Injection:
+```java
+// Constructor Injection Example
+class UserService {
+    private final EmailService emailService;
+    private final LoggerService loggerService;
+    
+    // Dependencies injected through constructor
+    public UserService(EmailService emailService, LoggerService loggerService) {
+        this.emailService = emailService;
+        this.loggerService = loggerService;
+    }
+    
+    public void registerUser(String email) {
+        loggerService.log("Registering user: " + email);
+        emailService.sendWelcomeEmail(email);
+    }
+}
+
+// Usage
+EmailService emailService = new EmailService();
+LoggerService loggerService = new LoggerService();
+UserService userService = new UserService(emailService, loggerService);
+```
+
+2. Setter Injection:
+```java
+// Setter Injection Example
+class UserService {
+    private EmailService emailService;
+    private LoggerService loggerService;
+    
+    // Dependencies injected through setters
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+    
+    public void setLoggerService(LoggerService loggerService) {
+        this.loggerService = loggerService;
+    }
+    
+    public void registerUser(String email) {
+        loggerService.log("Registering user: " + email);
+        emailService.sendWelcomeEmail(email);
+    }
+}
+
+// Usage
+UserService userService = new UserService();
+userService.setEmailService(new EmailService());
+userService.setLoggerService(new LoggerService());
+```
+
+3. Field (Interface) Injection:
+```java
+// Field Injection Example (using Spring)
+@Service
+class UserService {
+    @Autowired
+    private EmailService emailService;
+    
+    @Autowired
+    private LoggerService loggerService;
+    
+    public void registerUser(String email) {
+        loggerService.log("Registering user: " + email);
+        emailService.sendWelcomeEmail(email);
+    }
+}
+```
+
+Real-world Example with all types:
+```java
+// Dependencies
+interface MessageService {
+    void sendMessage(String msg);
+}
+
+interface LogService {
+    void log(String msg);
+}
+
+interface CacheService {
+    void cache(String key, Object value);
+}
+
+// Implementation with all types of injection
+@Service
+class CompleteService {
+    // Field Injection
+    @Autowired
+    private CacheService cacheService;
+    
+    private final MessageService messageService;
+    private LogService logService;
+    
+    // Constructor Injection
+    @Autowired
+    public CompleteService(MessageService messageService) {
+        this.messageService = messageService;
+    }
+    
+    // Setter Injection
+    @Autowired
+    public void setLogService(LogService logService) {
+        this.logService = logService;
+    }
+    
+    public void doSomething(String data) {
+        logService.log("Processing: " + data);
+        messageService.sendMessage(data);
+        cacheService.cache("key", data);
+    }
+}
+```
+
+Comparison of DI Types:
+
+1. Constructor Injection:
+- Advantages:
+```java
+// 1. Ensures required dependencies
+// 2. Supports immutability
+// 3. Clear dependencies
+class Service {
+    private final Dependency dependency;
+    
+    public Service(Dependency dependency) {
+        this.dependency = dependency;
+    }
+}
+```
+
+2. Setter Injection:
+- Advantages:
+```java
+// 1. Optional dependencies
+// 2. Can change dependencies
+class Service {
+    private Dependency dependency;
+    
+    public void setDependency(Dependency dependency) {
+        this.dependency = dependency;
+    }
+}
+```
+
+3. Field Injection:
+- Advantages:
+```java
+// 1. Less boilerplate code
+// 2. Easy to add dependencies
+@Service
+class Service {
+    @Autowired
+    private Dependency dependency;
+}
+```
+
+Best Practices:
+1. Prefer Constructor Injection for required dependencies
+2. Use Setter Injection for optional dependencies
+3. Avoid Field Injection in production code
+4. Use interfaces for dependencies
+5. Follow SOLID principles
+
+Would you like me to elaborate on any specific type or aspect of Dependency Injection?
