@@ -935,6 +935,10 @@ Would you like me to elaborate on any specific aspect of access modifiers?
 
 Let me explain Dependency Injection (DI) with clear examples:
 
+https://youtu.be/AbJpKhJVPt4
+https://youtu.be/07smikVqNCc
+https://youtu.be/gHQSQneKnhM
+
 Dependency Injection is a design pattern where objects get their dependencies from external sources rather than creating them internally.
 
 1. Without Dependency Injection (Bad Practice):
