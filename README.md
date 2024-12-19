@@ -1,3 +1,87 @@
+In Java, **data types** are broadly classified into **primitive types** and **reference types**. Here's a breakdown:
+
+---
+
+### **Primitive Types**
+- **Definition**: These are the basic data types provided by Java, which are not objects. They store actual values in memory.
+- **Characteristics**:
+  - Fixed size (platform-independent).
+  - Faster performance compared to reference types.
+  - Cannot be `null` (except in their wrapper class form, e.g., `Integer`, `Double`).
+  - Immutable.
+  
+- **Categories and Examples**:
+  1. **Integer types**:
+     - `byte` (1 byte): Range: -128 to 127.
+     - `short` (2 bytes): Range: -32,768 to 32,767.
+     - `int` (4 bytes): Range: -2³¹ to 2³¹-1.
+     - `long` (8 bytes): Range: -2⁶³ to 2⁶³-1.
+  2. **Floating-point types**:
+     - `float` (4 bytes): Single-precision, e.g., 3.14f.
+     - `double` (8 bytes): Double-precision, e.g., 3.14159265359.
+  3. **Character type**:
+     - `char` (2 bytes): A single 16-bit Unicode character, e.g., `'A'`.
+  4. **Boolean type**:
+     - `boolean` (1 bit): `true` or `false`.
+
+---
+
+### **Reference Types**
+- **Definition**: These refer to objects and arrays. They store the memory address of the object they point to, not the actual data.
+- **Characteristics**:
+  - Can store `null` (absence of value).
+  - Slower performance compared to primitive types.
+  - Can have methods and additional functionalities.
+  - Allocated on the heap memory.
+
+- **Examples**:
+  1. **Objects**:
+     - Created from classes (e.g., `String`, `Scanner`, or custom classes like `MyClass`).
+     ```java
+     String name = "Java";
+     MyClass obj = new MyClass();
+     ```
+  2. **Arrays**:
+     - A collection of values, e.g., `int[] numbers = {1, 2, 3};`.
+  3. **Interfaces**:
+     - Variables can hold references to implementations of interfaces.
+  4. **Enums**:
+     - Enumerations represent a fixed set of constants.
+
+---
+
+### **Key Differences Between Primitive and Reference Types**
+| Feature               | Primitive Types                     | Reference Types                      |
+|-----------------------|-------------------------------------|--------------------------------------|
+| **Storage**           | Directly store the value.          | Store the memory address (reference).|
+| **Nullability**       | Cannot be `null`.                  | Can be `null`.                       |
+| **Methods**           | No methods available.              | Can invoke methods (e.g., `.length()`, `.toString()`). |
+| **Memory Location**   | Stored in stack memory.            | Stored in heap memory.               |
+| **Performance**       | Faster.                           | Slower.                              |
+
+---
+
+### Example Code:
+```java
+public class DataTypeDemo {
+    public static void main(String[] args) {
+        // Primitive Type
+        int a = 10;
+        System.out.println("Primitive: " + a); // Outputs: Primitive: 10
+        
+        // Reference Type (String)
+        String str = "Hello, Java!";
+        System.out.println("Reference: " + str); // Outputs: Reference: Hello, Java!
+        
+        // Reference Type (Array)
+        int[] numbers = {1, 2, 3};
+        System.out.println("First Element: " + numbers[0]); // Outputs: First Element: 1
+    }
+}
+```
+
+Let me know if you'd like further examples or clarification!
+
 # Java Questions 
 ## Defensive Programming
 
